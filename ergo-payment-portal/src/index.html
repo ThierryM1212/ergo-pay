@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="../resources/favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <title>Ergo Pay</title>
+</head>
+
+<body style="overflow-x: hidden;">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <div>
+            <a class="navbar-brand" href="./about.html">
+                <img src="../resources/ergo_card.svg" class="d-inline-block align-top" alt="" />
+            </a>
+            <a class="navbar-brand" href="./voucher.html">
+                Vouchers
+            </a>
+            <a class="navbar-brand" href="./about.html">
+                About
+            </a>
+        </div>
+
+        <h2>Ergo Pay</h2>
+        <h3>Generate URL</h3>
+    </nav>
+
+    <div class="alert alert-secondary" role="alert" id="status">
+        Wallet not connected
+    </div>
+
+    <div class="row">
+        <div class="card p-2 my-auto mx-auto table-wrapper">
+            <div id="container" class="container-xxl mx-auto">
+                <form id="token-form" class="needs-validation" action="#" onsubmit="generatePaymentURL();return false">
+
+                    <div class="mb-3 row">
+                        <label for="address" class="col-sm-2 col-form-label">Send to</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="address" required>
+                        </div>
+                        <label class="col-sm col-form-label text-sm-left display-4">ERG address to receive the
+                            payment</label>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="ref" class="col-sm-2 col-form-label">Currency</label>
+                        <div class="col-sm-10" style="align-items: center;">
+                            <label class="radio-inline">
+                                <div class="mp-2 " style="text-align: center;">
+                                    <input type="radio" name="currency" value="ERG" checked />
+                                    <img src="../resources/ergo-erg-logo.svg" width="40" height="40"
+                                        class="d-inline-block align-top" alt="ERG" />
+                                    <div style="text-align: center;">ERG</div>
+                                </div>
+                            </label>
+
+
+                            <label class="radio-inline">
+                                <div class="m-2" style="text-align: center;">
+                                    <input type="radio" name="currency" value="SIGUSD" />
+                                    <img src="../resources/sigmausd.svg" width="45" height="40"
+                                        class="d-inline-block align-top" alt="SigUSD" />
+                                    <div style="text-align: center;">SigUSD</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="amount" class="col-sm-2 col-form-label" id="asset-label">Amount</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="amount" required pattern="[0-9\\.]+">
+                        </div>
+                        <label class="col-sm col-form-label text-sm-left display-4">Amount of to be sent mininum 0.1 ERG
+                            or 1 SIGUSD</label>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="ref" class="col-sm-2 col-form-label">Payment identifier</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="ref" pattern="[ -~]{0,40}">
+                        </div>
+                        <label class="col-sm col-form-label text-sm-left display-4">Up to 40 ascii characters (A,a,z,-,
+                            ,*,...)</label>
+                    </div>
+
+                    <div class="mb-3 row result" hidden>
+                        <label for="payment-url" class="col-sm-2 col-form-label">Payment URL</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="payment-url" readonly>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row result" hidden>
+                        <label for="canvas" class="col-sm-2 col-form-label">QR code URL</label>
+                        <div class="col-sm-10">
+                            <canvas id="canvas" class="center"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row result" hidden>
+                        <label for="fee" class="col-sm-2 col-form-label">dApp fee</label>
+                        <div class="col-sm-10">
+                            <input class="form-control" id="fee" readonly>
+                        </div>
+                    </div>
+
+                    <button id="generate-url" type="submit" class="btn btn-secondary float-right">Generate payment
+                        URL</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br />
+    
+
+    <footer class="footer align-items-center">
+        <div class="col-md-12 text-muted ">
+            © 2021 ThierryM1212 - 
+            <a href="https://t.me/ThierryM1212" target="_blank">
+                <img src="../resources/logo_telegram.svg" width="20" height="20" class="d-inline-block align-top" alt="" />
+            </a>
+            &nbsp;  
+            <a href="https://github.com/ThierryM1212/" target="_blank">
+                <img src="../resources/GitHub.png" width="20" height="20" class="d-inline-block align-top" alt="" />
+            </a>  
+        </div>
+    </footer>
+
+    <noscript>This page contains webassembly and javascript content, please enable javascript in your
+        browser.</noscript>
+    <script src="./bootstrap.js"></script>
+</body>
+
+</html>

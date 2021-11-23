@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="17.958914mm"
+   height="15.464895mm"
+   viewBox="0 0 17.958914 15.464895"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="sigmausd.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="4.192802"
+     inkscape:cx="32.317291"
+     inkscape:cy="38.041387"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-39.024159,-108.99712)">
+    <g
+       id="g962">
+      <g
+         id="main"
+         transform="matrix(0.26458333,0,0,0.26458333,39.037388,109.00234)">
+	<g
+   id="Group-16"
+   transform="translate(-70,-35)">
+		<g
+   transform="translate(70,34)"
+   id="g18">
+			<g
+   id="Group-15"
+   transform="translate(0,0.83028)">
+				<path
+   id="Fill-9"
+   class="st0"
+   d="M 11.2,47.8 29.5,55.2 47.7,47.4 55,29.1 47.2,10.9 28.9,3.6 10.7,11.4 3.4,29.7 Z m 18.3,10.8 c -0.2,0 -0.4,0 -0.6,-0.1 L 9.3,50.6 C 8.9,50.4 8.6,50.1 8.4,49.7 L 0.1,30.3 C -0.1,29.9 -0.1,29.5 0.1,29 L 8,9.5 C 8.2,9.1 8.5,8.8 8.9,8.6 L 28.3,0.3 c 0.4,-0.2 0.8,-0.2 1.3,0 L 49.2,8.2 C 49.5,8.3 49.8,8.6 50,9 l 8.3,19.4 c 0.2,0.4 0.2,0.8 0,1.3 l -7.9,19.6 c -0.2,0.4 -0.5,0.7 -0.9,0.9 l -19.4,8.3 c -0.1,0.1 -0.4,0.1 -0.6,0.1 z" />
+
+				<polygon
+   id="Fill-10"
+   class="st0"
+   points="20.5,37.7 28.3,29.1 20.5,21 20.5,17.3 38,17.3 38,21 25.8,21 33.4,29.1 25.6,37.7 38,37.7 38,41.5 20.5,41.5 " />
+
+			</g>
+
+		</g>
+
+	</g>
+
+</g>
+      <circle
+         style="fill:#008080;stroke-width:0.264583"
+         id="path144"
+         cx="53.575447"
+         cy="114.28167"
+         r="3.4076257" />
+      <g
+         id="g855"
+         transform="matrix(0.01278562,0,0,0.00948132,50.393066,112.05837)">
+        <path
+           d="m 145,312 c -2,69 31,100 104,102 78,1 113,-34 109,-101 -6,-58 -62,-73 -106,-79 -48,-17 -99,-25 -99,-95 0,-48 32,-79 99,-78 60,0 97,25 96,84"
+           style="fill:none;stroke:#000000;stroke-width:40"
+           id="path843" />
+        <path
+           d="M 250,15 V 485"
+           style="stroke:#000000;stroke-width:30"
+           id="path845" />
+      </g>
+    </g>
+  </g>
+  <style
+     type="text/css"
+     id="style9">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;}
+</style>
+</svg>

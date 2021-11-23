@@ -1,0 +1,30 @@
+{
+  "name": "ergo-token-minter",
+  "version": "0.1.0",
+  "description": "Ergo token minter using Yoroi Ergo dApp Connector",
+  "main": "index.js",
+  "bin": {
+    "ergo-token-minter": ".bin/ergo-token-minter.js"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server",
+    "buildstatic": "webpack ./src/bootstrap.js --output-filename=bootstrap.js --mode=development"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^5.0.0",
+    "ergo-lib-wasm-browser": "0.14.0-alpha-a3940fc",
+    "html-webpack-plugin": "^4.5.2",
+    "json-bigint": "^1.0.0",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  },
+  "dependencies": {
+    "@coinbarn/ergo-ts": "^0.3.0",
+    "jquery": "^3.6.0",
+    "qrcode": "^1.4.4",
+    "sweetalert2": "^11.1.10",
+    "text-decoding": "^1.0.0"
+  }
+}
