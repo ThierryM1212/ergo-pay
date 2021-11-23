@@ -20,13 +20,13 @@ In this option you do not deploy a personal Ergo payment portal, and will suppor
 You can monitor the payment through the https://paymentportal.ergo.ga/voucher.html page or automate it using the monitor-vouchers nodejs script.
 
 You need to:
-  - create an Ergo wallet to get an ERG address (let say it is 9xxxxxxxxxxxxxxxxx)
+  - create an Ergo wallet to get an ERG address
   - create links in your website or application to the payment portal:
-  https://paymentportal.ergo.ga/pay.html?address=9xxxxxxxxxxxxxxxxx&currency=ERG&amount=10&ref=Account_17889569
+  https://paymentportal.ergo.ga/pay.html?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG&currency=ERG&amount=5&ref=Account_17889569
     URL parameters are:
-        address=9xxxxxxxxxxxxxxxxx
+        address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG
         currency=ERG
-        amount=10
+        amount=5
         ref=Account_17889569
     
     address needs to be a valid ERG address not like this one.
