@@ -4,7 +4,7 @@ Tested with nodejs v16.12.0
 
 # Installation and start
 
-> npm install
+> npm install <br/>
 > node monitor-payment-server.js
 
 # Usage 
