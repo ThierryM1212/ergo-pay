@@ -42,6 +42,7 @@ You need to:
 - Checkout the ergo-payment-portal project and follow the readme to build a static page
 - Integrate the static page generated in the dist folder in your application / website, setting the dApp fees to 0
 - Integrate ergo payments like for option 1
+- Additionnally, to automate the payment processing in your website/application, you can run the monitor-vouchers project included in this repository in order to get the json list of payments received with their reference.
 
 This alows you to handle your own payment portal direct from customers.
 
