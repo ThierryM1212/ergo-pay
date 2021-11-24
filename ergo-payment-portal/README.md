@@ -1,4 +1,4 @@
-# Ergo Pay - Payment portal
+# Ergo Payment portal
 
 ## Introduction
 

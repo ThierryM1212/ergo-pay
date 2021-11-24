@@ -1,4 +1,4 @@
-# Ergo Pay
+# Ergo Payment Portal
 
 This project intends to ease Ergo and SigUSD payments integration.<br/>
 It provides a webpage allowing to generate URL to request Ergo payments to be proceed with Yoroi dApp connector.<br/>
