@@ -53,7 +53,7 @@ function triggerWaitAlert(msg, html) {
         showConfirmButton: false,
         imageUrl: '../resources/Spin-1.5s-94px.svg',
         onBeforeOpen: () => {
-            Swal.showLoading() 
+            Swal.showLoading()
         },
     });
 }
@@ -71,7 +71,7 @@ async function connectErgoWallet(ergAddress, currency, amount, ref) {
             console.log("ergo access given");
             setStatus("Wallet connected", "secondary");
             triggerWaitAlert("Retrieving " + currency + " balance...");
-            
+
             if (currency == "ERG") {
                 ergo.get_balance().then(async function (result) {
                     const walletAmount = parseFloat(parseFloat(result) / parseFloat(NANOERG_TO_ERG)).toFixed(3);
@@ -79,7 +79,7 @@ async function connectErgoWallet(ergAddress, currency, amount, ref) {
                     Swal.close();
                 });
             } else {
-                ergo.get_utxos("1000000000000",SIGUSD_TOKENID).then(async function (result) {
+                ergo.get_utxos("1000000000000", SIGUSD_TOKENID).then(async function (result) {
                     var amountUSD = 0;
                     for (var i in result) {
                         for (var j in result[i].assets) {
@@ -94,7 +94,7 @@ async function connectErgoWallet(ergAddress, currency, amount, ref) {
                 });
             }
         };
-        
+
     });
 }
 
@@ -166,7 +166,7 @@ async function generatePaymentURL(event) {
     var QRCode = require('qrcode')
     var canvas = document.getElementById('canvas')
     QRCode.toCanvas(canvas, generatedURL, function (error) {
-    if (error) console.error(error)
+        if (error) console.error(error)
         console.log('success!');
     });
     var res = document.getElementsByClassName("result");
@@ -189,9 +189,9 @@ async function loadVoucherPage(ergAddress) {
         const voucherList = await extractVoucherList(boxes);
 
         for (var i in voucherList) {
-            var html_row = "<td><h5 class=\"payment-ref\">"+voucherList[i][0]+"</h5></td>";
-            html_row += "<td><h5 class=\"amount-erg\">"+voucherList[i][1]+"</h5></td>";
-            html_row += "<td><h5 class=\"amount-sigusd\">"+formatTokenAmount(voucherList[i][2],2)+"</h5></td>";
+            var html_row = "<td><h5 class=\"payment-ref\">" + voucherList[i][0] + "</h5></td>";
+            html_row += "<td><h5 class=\"amount-erg\">" + voucherList[i][1] + "</h5></td>";
+            html_row += "<td><h5 class=\"amount-sigusd\">" + formatTokenAmount(voucherList[i][2], 2) + "</h5></td>";
             var e = document.createElement('tr');
             e.innerHTML = html_row;
             container.appendChild(e);
@@ -199,7 +199,7 @@ async function loadVoucherPage(ergAddress) {
             var myJson = {};
             myJson["ref"] = voucherList[i][0];
             myJson["amountERG"] = voucherList[i][1];
-            myJson["amountSIGUSD"] = (parseFloat(voucherList[i][2])/100).toFixed(2);
+            myJson["amountSIGUSD"] = (parseFloat(voucherList[i][2]) / 100).toFixed(2);
             jSonList.push(myJson);
         }
         csvArea.value = csv;
@@ -207,15 +207,15 @@ async function loadVoucherPage(ergAddress) {
     }
 }
 
-async function extractVoucherList (boxes) {
+async function extractVoucherList(boxes) {
     var voucherList = [];
     for (var i in boxes) {
-        if ("R4" in boxes[i].additionalRegisters 
+        if ("R4" in boxes[i].additionalRegisters
             && "R5" in boxes[i].additionalRegisters) {
-            if (boxes[i].additionalRegisters.R4.sigmaType == 'Coll[SByte]' 
-                    && boxes[i].additionalRegisters.R5.sigmaType == 'Coll[SByte]') {
+            if (boxes[i].additionalRegisters.R4.sigmaType == 'Coll[SByte]'
+                && boxes[i].additionalRegisters.R5.sigmaType == 'Coll[SByte]') {
                 const appRef = await decodeString(boxes[i].additionalRegisters.R5.serializedValue);
-                if (appRef == PP_REF ) {
+                if (appRef == PP_REF) {
                     const paymentRef = await decodeString(boxes[i].additionalRegisters.R4.serializedValue);
                     const amountERG = (parseInt(boxes[i].value) / NANOERG_TO_ERG).toFixed(4);
                     var amountSIGUSD = 0;
@@ -224,7 +224,7 @@ async function extractVoucherList (boxes) {
                             amountSIGUSD += boxes[i].assets[j].amount;
                         }
                     }
-                    voucherList.push([paymentRef,amountERG,amountSIGUSD]);
+                    voucherList.push([paymentRef, amountERG, amountSIGUSD]);
                 }
             }
         }
@@ -475,7 +475,7 @@ function displayTxId(txId) {
 // decimalsInt: number of decimals of te token
 export function formatTokenAmount(amountInt, decimalsInt) {
     if (decimalsInt > 0) {
-        const numberAmount = (Number(amountInt)/Number(Math.pow(10, parseInt(decimalsInt)))).toFixed(parseInt(decimalsInt));
+        const numberAmount = (Number(amountInt) / Number(Math.pow(10, parseInt(decimalsInt)))).toFixed(parseInt(decimalsInt));
         var str = numberAmount.toString().split(".");
         str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return str.join(".");
@@ -485,24 +485,23 @@ export function formatTokenAmount(amountInt, decimalsInt) {
 }
 
 // INIT page
-if (typeof ergo_request_read_access === "undefined") {
-    var msg = "Yorio ergo dApp connector not found, to use this dApp you need to install the extensions: ";
-    msg += '<a href="https://chrome.google.com/webstore/detail/yoroi-nightly/poonlenmfdfbjfeeballhiibknlknepo" target="_blank">Yoroi nightly</a> and ';
-    msg += '<a href="https://chrome.google.com/webstore/detail/yoroi-ergo-dapp-connector/chifollcalpmjdiokipacefnpmbgjnle" target="_blank">Yoroi dApp connector</a>.';
-    setStatus(msg, "warning");
-} else {
-    console.log("Yorio ergo dApp found");
-    window.addEventListener("ergo_wallet_disconnected", function (event) {
-        const connectWalletButton = document.getElementById("connect-wallet");
-        connectWalletButton.value = "Connect wallet";
-        connectWalletButton.onclick = connectErgoWallet;
-        setStatus("Ergo wallet disconnected", "warning");
-        const container = document.getElementById("main");
-        container.addAttribute("hidden");
-    });
-    const currentLocation = window.location;
-    if (currentLocation.toString().includes("pay.html")) {
-        console.log("pay.html")
+const currentLocation = window.location;
+if (currentLocation.toString().includes("pay.html")) {
+    if (typeof ergo_request_read_access === "undefined") {
+        var msg = "Yorio ergo dApp connector not found, to use this dApp you need to install the extensions: ";
+        msg += '<a href="https://chrome.google.com/webstore/detail/yoroi-nightly/poonlenmfdfbjfeeballhiibknlknepo" target="_blank">Yoroi nightly</a> and ';
+        msg += '<a href="https://chrome.google.com/webstore/detail/yoroi-ergo-dapp-connector/chifollcalpmjdiokipacefnpmbgjnle" target="_blank">Yoroi dApp connector</a>.';
+        setStatus(msg, "warning");
+    } else {
+        console.log("Yorio ergo dApp found");
+        window.addEventListener("ergo_wallet_disconnected", function (event) {
+            const connectWalletButton = document.getElementById("connect-wallet");
+            connectWalletButton.value = "Connect wallet";
+            connectWalletButton.onclick = connectErgoWallet;
+            setStatus("Ergo wallet disconnected", "warning");
+            const container = document.getElementById("main");
+            container.addAttribute("hidden");
+        });
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         var parameterValid = true;
@@ -530,28 +529,29 @@ if (typeof ergo_request_read_access === "undefined") {
             loadPaymentPage(address, currency, amount, ref);
             connectErgoWallet(address, currency, amount, ref);
         }
-    } else if (currentLocation.toString().includes("voucher.html")) {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const ergAddress = urlParams.get('address');
-        if (ergAddress == null) {
-            setStatus("Provide the ERG address to monitor", "secondary");
+    }
+} else if (currentLocation.toString().includes("voucher.html")) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const ergAddress = urlParams.get('address');
+    if (ergAddress == null) {
+        setStatus("Provide the ERG address to monitor", "secondary");
+    } else {
+        if (ergAddress.length != 51 || ergAddress.charAt(0) != '9') {
+            setStatus("Invalid ERG address", "danger");
         } else {
-            if (ergAddress.length != 51 || ergAddress.charAt(0) != '9') {
-                setStatus("Invalid ERG address", "danger");
-            } else {
-                setStatus("List of the received payments from " + PP_REF + " for address <b>" + ergAddress + "</b>" , "secondary");
-                document.getElementById("result").removeAttribute("hidden");
-                loadVoucherPage(ergAddress);
-            }
+            setStatus("List of the received payments from " + PP_REF + " for address <b>" + ergAddress + "</b>", "secondary");
+            document.getElementById("result").removeAttribute("hidden");
+            loadVoucherPage(ergAddress);
         }
     }
-    else { // generate URL page
-        const generateButton = document.getElementById("generate-url");
-        generateButton.onclick = generatePaymentURL;
-        setStatus("Provide the inputs for the payment request URL", "secondary");
-    };
 }
+else { // generate URL page
+    const generateButton = document.getElementById("generate-url");
+    generateButton.onclick = generatePaymentURL;
+    setStatus("Provide the inputs for the payment request URL", "secondary");
+};
+
 
 
 
