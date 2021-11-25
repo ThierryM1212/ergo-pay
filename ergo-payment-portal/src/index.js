@@ -62,7 +62,7 @@ async function connectErgoWallet(ergAddress, currency, amount, ref) {
     triggerWaitAlert("Connection to Yoroi wallet...");
 
     ergo_request_read_access().then(function (access_granted) {
-        const connectWalletButton = document.getElementById("connect-wallet");
+            const connectWalletButton = document.getElementById("connect-wallet");
         if (!access_granted) {
             console.log("ergo access refused");
             setStatus("Wallet access denied", "warning")
@@ -92,9 +92,8 @@ async function connectErgoWallet(ergAddress, currency, amount, ref) {
                     connectWalletButton.innerText = "Balance: " + walletAmount + " SigUSD";
                     Swal.close();
                 });
-            }
+            };
         };
-
     });
 }
 
@@ -288,6 +287,7 @@ async function sendTransaction() {
             msg = msg + "Increase the Erg amount to process the transaction. "
         }
         logErrorStatus(e, msg);
+        Swal.close();
         return null;
     }
     //console.log('boxSelection: ', boxSelection.boxes().len());
@@ -329,6 +329,7 @@ async function sendTransaction() {
         outputCandidates.add(sellerBoxBuilder.build());
     } catch (e) {
         console.log(`building error: ${e}`);
+        Swal.close();
         throw e;
     }
 
@@ -354,6 +355,7 @@ async function sendTransaction() {
             outputCandidates.add(feeBoxBuilder.build());
         } catch (e) {
             console.log(`building error: ${e}`);
+            Swal.close();
             throw e;
         }
     }
