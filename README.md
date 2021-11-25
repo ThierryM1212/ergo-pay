@@ -32,7 +32,7 @@ You need to:<br/>
 ```
 <br/>
 address needs to be a valid ERG address<br/>
-currency needs to be ERG or SIGUSD (case sensitive)<br/>
+currency needs to be ERG or SIGUSD<br/>
 amount needs to be > 0.1 for ERG and > 0.01 for SigUSG<br/>
 ref is optional, it can be any string up to 40 ascii char<br/>
 <br/>

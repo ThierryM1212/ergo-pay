@@ -235,7 +235,7 @@ async function loadPaymentPage(ergAddress, currency, amount, ref) {
     const addressElem = document.getElementById("address");
     addressElem.value = ergAddress;
     const assetElem = document.getElementById("asset-label");
-    assetElem.innerText = currency;
+    assetElem.innerText = currency.toUpperCase();
     const amountElem = document.getElementById("amount");
     amountElem.value = amount;
     const refElem = document.getElementById("ref");
@@ -248,7 +248,7 @@ async function sendTransaction() {
     triggerWaitAlert("Getting inputs for the transaction...");
     const creationHeight = await currentHeight();
     const address = document.getElementById("address").value;
-    const currency = document.getElementById("asset-label").innerText;
+    const currency = document.getElementById("asset-label").innerText.toUpperCase();
     const amountFloat = parseFloat(document.getElementById("amount").value);
     const ref = document.getElementById("ref").value;
     const changeAddress = await ergo.get_change_address();
@@ -514,7 +514,7 @@ if (currentLocation.toString().includes("pay.html")) {
             parameterValid = false;
         };
         // Currency
-        const currency = urlParams.get('currency');
+        const currency = urlParams.get('currency').toUpperCase();
         if (currency != 'ERG' && currency != 'SIGUSD') {
             setStatus("Invalid currency parameter '" + currency + "': Only ERG or SIGUSD are accepted", "danger");
             parameterValid = false;
@@ -522,7 +522,9 @@ if (currentLocation.toString().includes("pay.html")) {
         // Amount
         const amount = urlParams.get('amount');
         const amountFloat = getAmountFloat(currency, amount);
-        if (amountFloat == null) {
+        console.log("amountFloat",amountFloat);
+        if (amountFloat == null || isNaN(amountFloat)) {
+            setStatus("Invalid amount parameter: " + amount, "danger");
             parameterValid = false;
         };
         // Reference, optional
