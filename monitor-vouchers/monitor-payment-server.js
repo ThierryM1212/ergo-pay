@@ -22,6 +22,7 @@ app.get('/', async function (req, res) {
       myJson["ref"] = voucherList[i][0];
       myJson["amountERG"] = voucherList[i][1];
       myJson["amountSIGUSD"] = (parseFloat(voucherList[i][2])/100).toFixed(2);
+      myJson["senderAddress"] = voucherList[i][3];
       response.push(myJson);
     }
   } 
@@ -40,6 +41,8 @@ async function extractVoucherList (boxes) {
                   && boxes[i].additionalRegisters.R5.sigmaType == 'Coll[SByte]') {
               const appRef = await decodeString(boxes[i].additionalRegisters.R5.serializedValue);
               if (appRef == PP_REF ) {
+                  const txId = boxes[i].transactionId;
+                  const senderAddress = await getSenderAddress(txId);
                   const paymentRef = await decodeString(boxes[i].additionalRegisters.R4.serializedValue);
                   const amountERG = (parseInt(boxes[i].value) / NANOERG_TO_ERG).toFixed(4);
                   var amountSIGUSD = 0;
@@ -48,7 +51,7 @@ async function extractVoucherList (boxes) {
                           amountSIGUSD += boxes[i].assets[j].amount;
                       }
                   }
-                  voucherList.push([paymentRef,amountERG,amountSIGUSD]);
+                  voucherList.push([paymentRef,amountERG,amountSIGUSD,senderAddress]);
               }
           }
       }
@@ -66,6 +69,12 @@ async function getBoxesForAdress(addr) {
   return getRequestV1(
       `/boxes/byAddress/${addr}`
   ).then(res => res.data.items);
+}
+
+async function getSenderAddress(txId) {
+    return getRequestV1(
+      `/transactions/${txId}`
+  ).then(res => res.data.inputs[0].address);
 }
 
 function toHexString(byteArray) {

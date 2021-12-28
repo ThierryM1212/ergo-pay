@@ -180,12 +180,12 @@ label {
   }
   
   /* IMAGE STYLES */
-  [type=radio] + img {
+  [type=radio] {
     cursor: pointer;
   }
   
   /* CHECKED STYLES */
-  [type=radio]:checked + img {
+  [type=radio]:checked  {
     outline: 2px solid rgb(86, 155, 235);
   }
 

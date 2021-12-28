@@ -80,4 +80,8 @@ export async function getBoxesForAdress(addr) {
 
 }
 
-
+export async function getSenderAddress(txId) {
+    return getRequestV1(
+      `/transactions/${txId}`
+  ).then(res => res.data.inputs[0].address);
+}

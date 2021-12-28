@@ -3,7 +3,7 @@ import * as wasm from "ergo-lib-wasm-browser";
 import JSONBigInt from 'json-bigint';
 import { parseUnsignedTx } from "./parseUtils";
 import { decodeString } from "./ergo-related/serializer";
-import { currentHeight, getBoxesForAdress } from './ergo-related/explorer';
+import { currentHeight, getBoxesForAdress, getSenderAddress } from './ergo-related/explorer';
 import Swal from 'sweetalert2'
 import { TextEncoder } from 'text-decoding';
 
@@ -181,7 +181,7 @@ async function loadVoucherPage(ergAddress) {
     const container = document.getElementById("container");
     const csvArea = document.getElementById("csvArea");
     const jsonArea = document.getElementById("jsonArea");
-    var csv = '"Payment reference","Amount ERG","Amount SigUSD"\n';
+    var csv = '"Payment reference","Amount ERG","Amount SigUSD","Sender address"\n';
     var jSonList = [];
 
     if (boxes.length > 0) {
@@ -191,6 +191,7 @@ async function loadVoucherPage(ergAddress) {
             var html_row = "<td><h5 class=\"payment-ref\">" + voucherList[i][0] + "</h5></td>";
             html_row += "<td><h5 class=\"amount-erg\">" + voucherList[i][1] + "</h5></td>";
             html_row += "<td><h5 class=\"amount-sigusd\">" + formatTokenAmount(voucherList[i][2], 2) + "</h5></td>";
+            html_row += "<td><h5 class=\"sender-address\">" + formatLongString(voucherList[i][3], 10) + "</h5></td>";
             var e = document.createElement('tr');
             e.innerHTML = html_row;
             container.appendChild(e);
@@ -199,6 +200,7 @@ async function loadVoucherPage(ergAddress) {
             myJson["ref"] = voucherList[i][0];
             myJson["amountERG"] = voucherList[i][1];
             myJson["amountSIGUSD"] = (parseFloat(voucherList[i][2]) / 100).toFixed(2);
+            myJson["senderAddress"] = voucherList[i][3];
             jSonList.push(myJson);
         }
         csvArea.value = csv;
@@ -206,15 +208,17 @@ async function loadVoucherPage(ergAddress) {
     }
 }
 
-async function extractVoucherList(boxes) {
+async function extractVoucherList (boxes) {
     var voucherList = [];
     for (var i in boxes) {
-        if ("R4" in boxes[i].additionalRegisters
+        if ("R4" in boxes[i].additionalRegisters 
             && "R5" in boxes[i].additionalRegisters) {
-            if (boxes[i].additionalRegisters.R4.sigmaType == 'Coll[SByte]'
-                && boxes[i].additionalRegisters.R5.sigmaType == 'Coll[SByte]') {
+            if (boxes[i].additionalRegisters.R4.sigmaType == 'Coll[SByte]' 
+                    && boxes[i].additionalRegisters.R5.sigmaType == 'Coll[SByte]') {
                 const appRef = await decodeString(boxes[i].additionalRegisters.R5.serializedValue);
-                if (appRef == PP_REF) {
+                if (appRef == PP_REF ) {
+                    const txId = boxes[i].transactionId;
+                    const senderAddress = await getSenderAddress(txId);
                     const paymentRef = await decodeString(boxes[i].additionalRegisters.R4.serializedValue);
                     const amountERG = (parseInt(boxes[i].value) / NANOERG_TO_ERG).toFixed(4);
                     var amountSIGUSD = 0;
@@ -223,13 +227,13 @@ async function extractVoucherList(boxes) {
                             amountSIGUSD += boxes[i].assets[j].amount;
                         }
                     }
-                    voucherList.push([paymentRef, amountERG, amountSIGUSD]);
+                    voucherList.push([paymentRef,amountERG,amountSIGUSD,senderAddress]);
                 }
             }
         }
     }
     return voucherList;
-}
+  }
 
 async function loadPaymentPage(ergAddress, currency, amount, ref) {
     const addressElem = document.getElementById("address");
@@ -483,6 +487,14 @@ export function formatTokenAmount(amountInt, decimalsInt) {
         return str.join(".");
     } else {
         return amountInt.replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+    }
+}
+
+export function formatLongString(str, num) {
+    if (str.length > 2 * num) {
+        return str.substring(0, num) + "..." + str.substring(str.length - num, str.length);
+    } else {
+        return str;
     }
 }
 
