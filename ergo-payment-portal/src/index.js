@@ -490,9 +490,8 @@ export function formatTokenAmount(amountInt, decimalsInt) {
 const currentLocation = window.location;
 if (currentLocation.toString().includes("pay.html")) {
     if (typeof ergo_request_read_access === "undefined") {
-        var msg = "Yorio ergo dApp connector not found, to use this dApp you need to install the extensions: ";
-        msg += '<a href="https://chrome.google.com/webstore/detail/yoroi-nightly/poonlenmfdfbjfeeballhiibknlknepo" target="_blank">Yoroi nightly</a> and ';
-        msg += '<a href="https://chrome.google.com/webstore/detail/yoroi-ergo-dapp-connector/chifollcalpmjdiokipacefnpmbgjnle" target="_blank">Yoroi dApp connector</a>.';
+        var msg = "Yorio ergo dApp connector not found, to use this dApp you need to install the extension ";
+        msg += '<a href="https://chrome.google.com/webstore/detail/yoroi-nightly/poonlenmfdfbjfeeballhiibknlknepo" target="_blank">Yoroi nightly</a>.';
         setStatus(msg, "warning");
     } else {
         console.log("Yorio ergo dApp found");
