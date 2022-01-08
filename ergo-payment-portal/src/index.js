@@ -49,7 +49,7 @@ function triggerWaitAlert(msg, html) {
     Swal.fire({
         title: msg,
         html: html,
-        allowOutsideClick: false,
+        allowOutsideClick: true,
         showConfirmButton: false,
         imageUrl: '../resources/Spin-1.5s-94px.svg',
         onBeforeOpen: () => {
@@ -541,8 +541,10 @@ if (currentLocation.toString().includes("pay.html")) {
         // Reference, optional
         const ref = urlParams.get('ref');
         if (parameterValid) {
-            loadPaymentPage(address, currency, amount, ref);
-            connectErgoWallet(address, currency, amount, ref);
+            loadPaymentPage(address, currency, amount, ref).then(() => {
+                connectErgoWallet(address, currency, amount, ref);
+            }
+            );
         }
     }
 } else if (currentLocation.toString().includes("voucher.html")) {
