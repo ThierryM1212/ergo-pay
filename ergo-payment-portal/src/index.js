@@ -62,7 +62,7 @@ async function connectErgoWallet(ergAddress, currency, amount, ref) {
     triggerWaitAlert("Connection to Yoroi wallet...");
 
     ergo_request_read_access().then(function (access_granted) {
-            const connectWalletButton = document.getElementById("connect-wallet");
+        const connectWalletButton = document.getElementById("connect-wallet");
         if (!access_granted) {
             console.log("ergo access refused");
             setStatus("Wallet access denied", "warning")
@@ -208,15 +208,15 @@ async function loadVoucherPage(ergAddress) {
     }
 }
 
-async function extractVoucherList (boxes) {
+async function extractVoucherList(boxes) {
     var voucherList = [];
     for (var i in boxes) {
-        if ("R4" in boxes[i].additionalRegisters 
+        if ("R4" in boxes[i].additionalRegisters
             && "R5" in boxes[i].additionalRegisters) {
-            if (boxes[i].additionalRegisters.R4.sigmaType == 'Coll[SByte]' 
-                    && boxes[i].additionalRegisters.R5.sigmaType == 'Coll[SByte]') {
+            if (boxes[i].additionalRegisters.R4.sigmaType == 'Coll[SByte]'
+                && boxes[i].additionalRegisters.R5.sigmaType == 'Coll[SByte]') {
                 const appRef = await decodeString(boxes[i].additionalRegisters.R5.serializedValue);
-                if (appRef == PP_REF ) {
+                if (appRef == PP_REF) {
                     const txId = boxes[i].transactionId;
                     const senderAddress = await getSenderAddress(txId);
                     const paymentRef = await decodeString(boxes[i].additionalRegisters.R4.serializedValue);
@@ -227,15 +227,15 @@ async function extractVoucherList (boxes) {
                             amountSIGUSD += boxes[i].assets[j].amount;
                         }
                     }
-                    voucherList.push([paymentRef,amountERG,amountSIGUSD,senderAddress]);
+                    voucherList.push([paymentRef, amountERG, amountSIGUSD, senderAddress]);
                 }
             }
         }
     }
     return voucherList;
-  }
+}
 
-async function loadPaymentPage(ergAddress, currency, amount, ref) {
+function loadPaymentPage(ergAddress, currency, amount, ref) {
     const addressElem = document.getElementById("address");
     addressElem.value = ergAddress;
     const assetElem = document.getElementById("asset-label");
@@ -501,50 +501,48 @@ export function formatLongString(str, num) {
 // INIT page
 const currentLocation = window.location;
 if (currentLocation.toString().includes("pay.html")) {
-    if (typeof ergo_request_read_access === "undefined") {
-        var msg = "Yorio ergo dApp connector not found, to use this dApp you need to install the extension ";
-        msg += '<a href="https://chrome.google.com/webstore/detail/yoroi-nightly/poonlenmfdfbjfeeballhiibknlknepo" target="_blank">Yoroi nightly</a>.';
-        setStatus(msg, "warning");
-    } else {
-        console.log("Yorio ergo dApp found");
-        window.addEventListener("ergo_wallet_disconnected", function (event) {
-            const connectWalletButton = document.getElementById("connect-wallet");
-            connectWalletButton.value = "Connect wallet";
-            connectWalletButton.onclick = connectErgoWallet;
-            setStatus("Ergo wallet disconnected", "warning");
-            const container = document.getElementById("main");
-            container.addAttribute("hidden");
-        });
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        var parameterValid = true;
-        // ERG address
-        const address = urlParams.get('address');
-        if (address != null && address.length != 51 && address.charAt(0) != '9') {
-            setStatus("Invalid ERG address", "danger");
-            parameterValid = false;
-        };
-        // Currency
-        const currency = urlParams.get('currency').toUpperCase();
-        if (currency != 'ERG' && currency != 'SIGUSD') {
-            setStatus("Invalid currency parameter '" + currency + "': Only ERG or SIGUSD are accepted", "danger");
-            parameterValid = false;
-        };
-        // Amount
-        const amount = urlParams.get('amount');
-        const amountFloat = getAmountFloat(currency, amount);
-        console.log("amountFloat",amountFloat);
-        if (amountFloat == null || isNaN(amountFloat)) {
-            setStatus("Invalid amount parameter: " + amount, "danger");
-            parameterValid = false;
-        };
-        // Reference, optional
-        const ref = urlParams.get('ref');
-        if (parameterValid) {
-            loadPaymentPage(address, currency, amount, ref).then(() => {
-                connectErgoWallet(address, currency, amount, ref);
-            }
-            );
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var parameterValid = true;
+    // ERG address
+    const address = urlParams.get('address');
+    if (address != null && address.length != 51 && address.charAt(0) != '9') {
+        setStatus("Invalid ERG address", "danger");
+        parameterValid = false;
+    };
+    // Currency
+    const currency = urlParams.get('currency').toUpperCase();
+    if (currency != 'ERG' && currency != 'SIGUSD') {
+        setStatus("Invalid currency parameter '" + currency + "': Only ERG or SIGUSD are accepted", "danger");
+        parameterValid = false;
+    };
+    // Amount
+    const amount = urlParams.get('amount');
+    const amountFloat = getAmountFloat(currency, amount);
+    console.log("amountFloat", amountFloat);
+    if (amountFloat == null || isNaN(amountFloat)) {
+        setStatus("Invalid amount parameter: " + amount, "danger");
+        parameterValid = false;
+    };
+    // Reference, optional
+    const ref = urlParams.get('ref');
+    if (parameterValid) {
+        loadPaymentPage(address, currency, amount, ref);
+        if (typeof ergo_request_read_access === "undefined") {
+            var msg = "Yorio ergo dApp connector not found, to use this dApp you need to install the extension ";
+            msg += '<a href="https://chrome.google.com/webstore/detail/yoroi-nightly/poonlenmfdfbjfeeballhiibknlknepo" target="_blank">Yoroi nightly</a>.';
+            setStatus(msg, "warning");
+        } else {
+            console.log("Yorio ergo dApp found");
+            window.addEventListener("ergo_wallet_disconnected", function (event) {
+                const connectWalletButton = document.getElementById("connect-wallet");
+                connectWalletButton.value = "Connect wallet";
+                connectWalletButton.onclick = connectErgoWallet;
+                setStatus("Ergo wallet disconnected", "warning");
+                const container = document.getElementById("main");
+                container.addAttribute("hidden");
+            });
+            connectErgoWallet(address, currency, amount, ref);
         }
     }
 } else if (currentLocation.toString().includes("voucher.html")) {
