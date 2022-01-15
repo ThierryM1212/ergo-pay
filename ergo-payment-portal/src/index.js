@@ -532,6 +532,8 @@ if (currentLocation.toString().includes("pay.html")) {
             var msg = "Yorio ergo dApp connector not found, to use this dApp you need to install the extension ";
             msg += '<a href="https://chrome.google.com/webstore/detail/yoroi-nightly/poonlenmfdfbjfeeballhiibknlknepo" target="_blank">Yoroi nightly</a>.';
             setStatus(msg, "warning");
+            const sendButton = document.getElementById("send-transaction");
+            sendButton.disabled = true;
         } else {
             console.log("Yorio ergo dApp found");
             window.addEventListener("ergo_wallet_disconnected", function (event) {
