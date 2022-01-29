@@ -67,7 +67,7 @@ async function getRequestV1(url) {
 
 async function getBoxesForAdress(addr) {
   return getRequestV1(
-      `/boxes/byAddress/${addr}`
+      `/boxes/byAddress/${addr}?limit=500`
   ).then(res => res.data.items);
 }
 
