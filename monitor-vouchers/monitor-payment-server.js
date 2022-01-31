@@ -9,11 +9,18 @@ const explorerV1Api = 'https://api.ergoplatform.com/api/v1';
 const PP_REF = "Ergo Payment Portal";
 const SIGUSD_TOKENID = "03faf2cb329f2e90d6d23b58d91bbb6c046aa143261cc21f52fbe2824bfcbf04";
 const app = express();
+const DEFAULT_LIMIT = "100";
 
 // Get the boxes for the given address and returns the list of payment coming from "Ergo Payment Portal" with the reference and amounts
-// http://localhost:3030?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG
+// http://localhost:3030?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG&limit=500
+
 app.get('/', async function (req, res) {
-  const boxes = await getBoxesForAdress(req.query.address);
+  var limit = DEFAULT_LIMIT;
+  if ("limit" in req.query) {
+    limit = req.query.limit;
+  }
+
+  const boxes = await getBoxesForAdress(req.query.address, limit);
   var response = [];
   if (boxes.length > 0) {
     const voucherList = await extractVoucherList(boxes);
@@ -29,7 +36,7 @@ app.get('/', async function (req, res) {
   res.send(response);
 })
 console.log("Ergo Pay monitor server running on port: " + APP_PORT);
-console.log("Sample URL: http://localhost:"+ APP_PORT +"?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG");
+console.log("Sample URL: http://localhost:"+ APP_PORT +"?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG&limit=200");
 app.listen(APP_PORT);
 
 async function extractVoucherList (boxes) {
@@ -65,9 +72,9 @@ async function getRequestV1(url) {
   });
 }
 
-async function getBoxesForAdress(addr) {
+async function getBoxesForAdress(addr, limit) {
   return getRequestV1(
-      `/boxes/byAddress/${addr}`
+      `/boxes/byAddress/${addr}?limit=${limit}`
   ).then(res => res.data.items);
 }
 
