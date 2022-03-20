@@ -1,7 +1,7 @@
 {
   "name": "ergo-token-minter",
   "version": "0.1.0",
-  "description": "Ergo token minter using Yoroi Ergo dApp Connector",
+  "description": "Ergo token minter using Ergo wallet dApp Connector (SAFEW, Nautilus or Yoroi wallet)",
   "main": "index.js",
   "bin": {
     "ergo-token-minter": ".bin/ergo-token-minter.js"

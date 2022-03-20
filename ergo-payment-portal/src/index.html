@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="../resources/favicon.ico">
+    <link rel="shortcut icon" href="./resources/favicon.ico">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./styles.css" />
@@ -14,7 +14,7 @@
     <nav class="navbar navbar-light bg-light justify-content-between">
         <div>
             <a class="navbar-brand" href="./about.html">
-                <img src="../resources/ergo_card.svg" class="d-inline-block align-top" alt="" />
+                <img src="./resources/ergo_card.svg" class="d-inline-block align-top" alt="" />
             </a>
             <a class="navbar-brand" href="./voucher.html">
                 Vouchers
@@ -35,7 +35,7 @@
     <div class="row">
         <div class="card p-2 my-auto mx-auto table-wrapper">
             <div id="container" class="container-xxl mx-auto">
-                <form id="token-form" class="needs-validation" action="#" onsubmit="generatePaymentURL();return false">
+                <form id="token-form" class="needs-validation" action="#" onsubmit="() => { generatePaymentURL(); return false; }">
 
                     <div class="mb-3 row">
                         <label for="address" class="col-sm-2 col-form-label">Send to</label>
@@ -52,7 +52,7 @@
                             <label class="radio-inline">
                                 <div class="mp-2 " style="text-align: center;">
                                     <input type="radio" name="currency" value="ERG" checked />
-                                    <img src="../resources/ergo-erg-logo.svg" width="40" height="40"
+                                    <img src="./resources/ergo-erg-logo.svg" width="40" height="40"
                                         class="d-inline-block align-top" alt="ERG" />
                                     <div style="text-align: center;">ERG</div>
                                 </div>
@@ -62,7 +62,7 @@
                             <label class="radio-inline">
                                 <div class="m-2" style="text-align: center;">
                                     <input type="radio" name="currency" value="SIGUSD" />
-                                    <img src="../resources/sigmausd.svg" width="45" height="40"
+                                    <img src="./resources/sigmausd.svg" width="45" height="40"
                                         class="d-inline-block align-top" alt="SigUSD" />
                                     <div style="text-align: center;">SigUSD</div>
                                 </div>
@@ -122,15 +122,15 @@
         <div class="col-md-12 text-muted ">
             © 2021 ThierryM1212 - 
             <a href="https://t.me/ThierryM1212" target="_blank">
-                <img src="../resources/logo_telegram.svg" width="20" height="20" class="d-inline-block align-top" alt="" />
+                <img src="./resources/logo_telegram.svg" width="20" height="20" class="d-inline-block align-top" alt="" />
             </a>
             &nbsp;  
             <a href="https://github.com/ThierryM1212/" target="_blank">
-                <img src="../resources/GitHub.png" width="20" height="20" class="d-inline-block align-top" alt="" />
+                <img src="./resources/GitHub.png" width="20" height="20" class="d-inline-block align-top" alt="" />
             </a>
             &nbsp; 
             <a href="https://dapp.ergo.ga/" target="_blank">
-                <img src="../resources/dApps.svg" width="50" height="20" class="d-inline-block align-top" alt="" />
+                <img src="./resources/dApps.svg" width="50" height="20" class="d-inline-block align-top" alt="" />
             </a> 
         </div>
     </footer>

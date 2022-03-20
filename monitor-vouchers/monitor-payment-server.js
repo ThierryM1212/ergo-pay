@@ -63,7 +63,7 @@ async function extractVoucherList (boxes) {
           }
       }
   }
-  return voucherList;
+  return voucherList.reverse();
 }
 
 async function getRequestV1(url) {

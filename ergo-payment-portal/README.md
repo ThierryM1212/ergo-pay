@@ -2,10 +2,10 @@
 
 ## Introduction
 
-dApp to ease Ergo and SigUSD payment integration using Yoroi wallet and the dApp connector.
+dApp to ease Ergo and SigUSD payment integration using dApp connector.
 Written in javascript with bootstrap v4.
 
-It can be tried at https://paymentportal.ergo.ga/
+It can be tried at https://thierrym1212.github.io/paymentportal/index.html
 
 ## Installation
 
