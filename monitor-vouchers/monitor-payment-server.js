@@ -15,9 +15,14 @@ const DEFAULT_LIMIT = "100";
 // http://localhost:3030?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG&limit=500
 
 app.get('/', async function (req, res) {
+  console.log("Request received:", req.query);
   var limit = DEFAULT_LIMIT;
+  var ref = undefined;
   if ("limit" in req.query) {
     limit = req.query.limit;
+  }
+  if ("ref" in req.query) {
+    ref = req.query.ref;
   }
 
   const boxes = await getBoxesForAdress(req.query.address, limit);
@@ -30,13 +35,15 @@ app.get('/', async function (req, res) {
       myJson["amountERG"] = voucherList[i][1];
       myJson["amountSIGUSD"] = (parseFloat(voucherList[i][2])/100).toFixed(2);
       myJson["senderAddress"] = voucherList[i][3];
-      response.push(myJson);
+      if(ref === undefined || myJson["ref"] === ref) {
+        response.push(myJson);
+      }
     }
   } 
   res.send(response);
 })
 console.log("Ergo Pay monitor server running on port: " + APP_PORT);
-console.log("Sample URL: http://localhost:"+ APP_PORT +"?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG&limit=200");
+console.log("Sample URL: http://localhost:"+ APP_PORT +"?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG&limit=200&ref=my_payment_ref");
 app.listen(APP_PORT);
 
 async function extractVoucherList (boxes) {
@@ -95,11 +102,13 @@ async function decodeString(encoded) {
 }
 
 async function get(url, apiKey = '') {
+    console.log("getting... ", url)
   return await fetch(url, {
       headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
           api_key: apiKey,
       },
-  }).then(res => res.json());
+  }).then(res => res.json())
+  .catch(e => console.log(e));
 }
