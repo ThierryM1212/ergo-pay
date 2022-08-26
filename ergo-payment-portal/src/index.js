@@ -138,7 +138,15 @@ async function generatePaymentURL(event) {
         console.log("validation error");
         return false;
     };
-    var generatedURL = window.location.protocol + '//' + window.location.host + "/pay.html?";
+    var generatedURL = window.location.protocol + '//' + window.location.host;
+    for (const part of window.location.pathname.split('/')){
+        if (part !== "" && part !== "/") {
+            if (!part.includes(".htm")) {
+                generatedURL = generatedURL + "/" + part
+            }
+        }
+    }
+    generatedURL = generatedURL + "/pay.html?";
     const address = document.getElementById("address").value;
     if (address.length != 51 && address.charAt(0) != '9') {
         setStatus("Invalid ERG address", "danger");
