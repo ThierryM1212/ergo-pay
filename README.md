@@ -14,15 +14,15 @@ You can integrate a FREE payment interface in your website or application, proce
 
 # How to integrate it ?
 
-## Option 1: Use the deployed Ergo Pay at: https://paymentportal.ergo.ga
+## Option 1: Use the deployed Ergo Pay at: https://thierrym1212.github.io/paymentportal/
 
 In this option you do not deploy a personal Ergo payment portal, and will support the fee of the deployed dApp (0.1% min or 0.001 ERG or 0.01 SigUSD).<br/>
-You can monitor the payment through the https://paymentportal.ergo.ga/voucher.html page or automate it using the monitor-vouchers nodejs script.<br/>
+You can monitor the payment through the https://thierrym1212.github.io/paymentportal/voucher.html page or automate it using the monitor-vouchers nodejs script.<br/>
 <br/>
 You need to:<br/>
   - create an Ergo wallet to get an ERG address<br/>
   - create links in your website or application to the payment portal:<br/>
-  https://paymentportal.ergo.ga/pay.html?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG&currency=ERG&amount=5&ref=Account_17889569<br/>
+  https://thierrym1212.github.io/paymentportal/pay.html?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG&currency=ERG&amount=5&ref=Account_17889569<br/>
 ```
     URL parameters are:
         address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG
@@ -36,7 +36,7 @@ currency needs to be ERG or SIGUSD<br/>
 amount needs to be > 0.1 for ERG and > 0.01 for SigUSG<br/>
 ref is optional, it can be any string up to 40 ascii char<br/>
 <br/>
-  - monitor the payments at https://paymentportal.ergo.ga/voucher.html?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG<br/>
+  - monitor the payments at https://thierrym1212.github.io/paymentportal/voucher.html?address=9ew97YCt7zQDwmLsytMAWGj2kockM11PFCnRvT2cz9LQaaB7uPG<br/>
     You will see the payment received until you move the fund in any transaction.
     
 ## Option 2: Deploy your own Ergo payment portal
